@@ -1,123 +1,250 @@
 package general;
 import astro.*;
-import astro.astrotypes.PlanetAtmosphere;
-import astro.astrotypes.PlanetTypes;
-import astro.astrotypes.StarsClasses;
-import persons.*;
 import tech.objects.*;
-import tech.objects.techtypes.*;
-import tech.ships.shipclasses.Ship;
-import javax.sound.sampled.Port;
-import static astro.AstrObject.getLocation;
-import static astro.Star.showInfo;
-import static astro.StarSystem.fullSystemInfo;
-import static astro.Planet.showInfo;
-import static astro.Moon.showInfo;
 import static astro.astrotypes.PlanetAtmosphere.*;
 import static astro.astrotypes.PlanetTypes.*;
 import static astro.astrotypes.StarsClasses.*;
-import static tech.objects.Colony.showInfo;
-import static tech.objects.Station.showInfo;
-import static tech.objects.TechObject.getLocation;
 import static tech.objects.techtypes.ColoniesTypes.*;
 import static tech.objects.techtypes.StationsTyps.*;
-import static tech.ships.shipclasses.Ship.*;
-import static tech.ships.shipsparameters.ShipClasses.*;
+import static astro.Definable.fullSystemInfo;
 
-// V-ДОБАВИТЬ ПЕРЕЧИСЛЕНИЯ ДЛЯ ТИПОВ СТАНЦИЙ
-// V-создать статический getLocation()
-// V-инетрефейс Locationable
-// настроить модификаторы доступа
-// создать константы массы и размеров!
-// создать интерфейсы астр. и тех. объектов!
-// метод отображения информации об объектах
-// подключить persistence
-// создать отдельный класс для объявлений
-// сделать отображение getObjectTYPE() для общего метода
-/// СОЗДАТЬ КОНТРОЛЛЕР ДЛЯ УПРАВЛЕНИЯ ОБЪЕКТКАМИ, В КЛАССАХ ОБЪЕКТОВ ОСТАВИТЬ ТОЛЬКО ИХ СОБСТВЕННЫЕ ПОЛЯ И МЕТОДЫ
+/*
+/// V-ДОБАВИТЬ ПЕРЕЧИСЛЕНИЯ ДЛЯ ТИПОВ СТАНЦИЙ
+/// V-создать статический getLocation()
+/// V-инетрефейс Definable
+/// V-настроить модификаторы доступа
+/// x-создать константы массы и размеров!
+/// VV-создать интерфейсы астр. и тех. объектов!
+/// VV-метод отображения информации об объектах
+/// x-подключить persistence!
+/// x-создать отдельный класс для объявлений!
+/// V-сделать отображение getObjectTYPE() для общего метода
+/// x-Создать контроллер для управления объектками
+/// V-В классах объектов оставить только их собственные поля и методы
+/// Сократить System.out.println;
+*/
 
 public class Main {
     public static void main(String[] args) {
         try {
-            /*БЛОК ОБЪЯВЛЕНИЙ*/  ///ДОБАВИТЬ ФАБРИКУ ASTR/TECH OBJECTS /// В КОНТОРЛЛЕР
+            /// ДОБАВИТЬ Producer ASTRO/TECH OBJECTS
+            /// ЛОГИКУ ОБЪЕКТОВ В КОНТОРЛЛЕР!
+            /// ОБЪЕКТЫ В БД!
+            ///! УЛУЧШИТЬ И ОПТИМИЗИРОВАТЬ ЛОГИКУ
+            /*БЛОК ОБЪЯВЛЕНИЙ*/
             // Объявление систем
-            StarSystem solsys = new StarSystem("Sol");
+            StarSystem solsys = new StarSystem("Solar System");
 
+            ///!
             // Объявление звезд
             Star sol = new Star("Sol", G, 1, 1);
             sol.setStarParameters(6.5, 6500);
 
-            // Объявление планет ///
+            ///!
+            // Объявление планет
             Planet mercury = new Planet("Mercury", Rock, None);
             mercury.setPlanetParameters(0.38, 2440, 3.72);
-            Planet venus = new Planet("Venus", Titan_like, CO2);
+
+            Planet venus = new Planet("Venus", TitanLike, CO2);
             venus.setPlanetParameters(0.82, 6052, 8.87);
-            Planet earth = new Planet("Earth", Terra_with_Life, O2);
+
+            Planet earth = new Planet("Earth", TerraWithLife, O2);
             earth.setPlanetParameters(1, 6371, 9.8);
+
             Planet mars = new Planet("Mars", Metal, CO2);
             mars.setPlanetParameters(0.65, 3390, 3.71);
 
-            // Объявление спутников
-            Moon luna = new Moon("Luna", 0.25, 1737);
-            luna.setLunarParameters(Rock, None, 30, 420, 0.23);
-            Moon demos = new Moon("Demos", 0.15, 6);
-            demos.setLunarParameters(Asteroid, None, 10, 100, 0.02);
-            Moon fobos = new Moon("Fobos", 0.18, 11);
-            fobos.setLunarParameters(Asteroid, None, 11, 110, 0.03);
+            Planet jupiter = new Planet("Jupiter");
+            Planet saturn = new Planet("Saturn");
+            Planet uranus = new Planet("Uranus");
+            Planet neptune = new Planet("Neptune");
 
+            ///!
+            // Объявление спутников
+            Moon luna = new Moon("Luna", 0.25, 1737.0);
+            luna.setLunarParameters(Rock, None, 30.0, 420.0, 0.23);
+
+            Moon demos = new Moon("Demos", 0.15, 6.0);
+            demos.setLunarParameters(Asteroid, None, 10.0, 100.0, 0.02);
+            Moon fobos = new Moon("Fobos", 0.18, 11.0);
+            fobos.setLunarParameters(Asteroid, None, 11.6, 110.0, 0.03);
+
+            Moon io = new Moon("Io");
+            Moon europa = new Moon("Europa");
+            Moon ganymede  = new Moon("Ganymede");
+            Moon callisto = new Moon("Callisto");
+
+            Moon titan = new Moon("Titan");
+            Moon umbriel = new Moon("Umbriel");
+            Moon miranda = new Moon("Miranda");
+            Moon triton = new Moon("Triton");
+
+            ///!
             // Объявление станций
             Station iss = new Station("ISS", Science, 1999);
-            Station marshorz = new Station("Mars Horizons", Hub, 2025);
+            Station marsvalley = new Station("Mars Horizons", Hub, 2025);
 
+            ///!
             // Объявление колоний
             Colony gateway = new Colony("Gateway", Port, 2024);
-            Colony ilonsport = new Colony("Ilonsport", Settlement, 2028);
+            Colony ilon = new Colony("Ilon", Capital, 2028);
 
 
-            /*БЛОК ОПРЕДЕЛЕНИЯ ПРЕНАДЛЕЖНОСТИ*/ //СНАЧАЛА ОПРЕДЕЛЯЮТСЯ АСТР.ОБ СВЕРХУ ВНИЗ, ПОТОМ ТЕХ.ОБ
-            solsys.addStars(sol);
-            sol.addPlanets(mercury, venus, earth, mars);
-            earth.addMoons(luna);
-            mars.addMoons(demos, fobos);
+            /*БЛОК УСТАНОВКИ ИЕРАРХИИ*/  ///!
+            /// АВТОМАТИЧЕСКИ устанавливать ЛОКАЦИЮ к звезде, палнете, спутнику
+            /// СОКРАТИТЬ
+            // Сперва по иерархии определеятся ASTRO, затем TECH
+            {
+                solsys.addStars(
+                        sol
+                );
+                sol.addPlanets(
+                        mercury,
+                        venus,
+                        earth,
+                        mars,
+                        jupiter,
+                        saturn,
+                        uranus,
+                        neptune
+                );
+                // Для планет
+                earth.addMoons(
+                        luna
+                );
+                earth.addStations(
+                        iss
+                );
+                mars.addMoons(
+                        demos,
+                        fobos
+                );
+                mars.addColonies(
+                        ilon
+                );
+                mars.addStations(
+                        marsvalley
+                );
+                jupiter.addMoons(
+                        io,
+                        europa,
+                        ganymede,
+                        callisto
+                );
+                saturn.addMoons(
+                        titan
+                );
+                uranus.addMoons(
+                        umbriel,
+                        miranda
+                );
+                neptune.addMoons(
+                        triton
+                );
+                {
+                    // Для спутников
+                    luna.addColonies(
+                            gateway
+                    );
+                }
+            }
 
-            earth.addStations(iss);
-            luna.addColonies(gateway);
-
-            mars.addColonies(ilonsport);
-            mars.addStations(marshorz);
-
-
+            ///!
             /*БЛОК УСТАНОВКИ ЛОКАЦИИ*/
-            // Локации звезды
-            sol.setLocation(solsys);
-            // Локации планет
-            mercury.setLocation(sol, solsys);
-            venus.setLocation(sol, solsys);
-            earth.setLocation(sol, solsys);
-            mars.setLocation(sol, solsys);
-            // Локации спутников
-            luna.setLocation(earth, sol, solsys);
-            demos.setLocation(mars, sol, solsys);
-            fobos.setLocation(mars, sol, solsys);
-            // Локации станций
-            iss.setLocation(earth, sol, solsys);
-            marshorz.setLocation(mars, sol, solsys);
-            // Локации колоний
-            gateway.setLocation(luna, earth, sol, solsys);
-            ilonsport.setLocation(mars, sol, solsys);
-
-
-            /*БЛОК СОЗДАНИЯ ЛИЧНОСТЕЙ*/
-            //Pilot shepard = new Pilot("Shepard", 30, 5);
-
-
+            {
+                // Локации звезды
+                sol.setLocation(
+                        solsys
+                );
+                // Локации планет
+                mercury.setLocation(
+                        sol,
+                        solsys
+                );
+                venus.setLocation(
+                        sol,
+                        solsys
+                );
+                earth.setLocation(
+                        sol,
+                        solsys
+                );
+                mars.setLocation(
+                        sol,
+                        solsys
+                );
+                jupiter.setLocation(
+                        sol,
+                        solsys
+                );
+                saturn.setLocation(
+                        sol,
+                        solsys
+                );
+                uranus.setLocation(
+                        sol,
+                        solsys
+                );
+                neptune.setLocation(
+                        sol,
+                        solsys
+                );
+                {
+                    // Локации спутников
+                    luna.setLocation(
+                            earth,
+                            sol,
+                            solsys
+                    );
+                    demos.setLocation(
+                            mars,
+                            sol,
+                            solsys
+                    );
+                    fobos.setLocation(
+                            mars,
+                            sol,
+                            solsys
+                    );
+                    {
+                        // Локации станций
+                        iss.setLocation(
+                                earth,
+                                sol,
+                                solsys
+                        );
+                        marsvalley.setLocation(
+                                mars,
+                                sol,
+                                solsys
+                        );
+                        {
+                            // Локации колоний
+                            gateway.setLocation(
+                                    luna,
+                                    earth,
+                                    sol,
+                                    solsys
+                            );
+                            ilon.setLocation(
+                                    mars,
+                                    sol,
+                                    solsys
+                            );
+                        }
+                    }
+                }
+            }
             ///*ACTION*///
-            // Astro
             fullSystemInfo(solsys);
 
 
+            ///*END-ACTION*///
+            /*
+            // БЛОК PERSON
+            Pilot shepard = new Pilot("Shepard", 30, 5);
             // Tech
-            /*shepard.sayGreet();
+            shepard.sayGreet();
             Ship xenta = iss.shipyard.buildShip(ANACONDA);
             xenta.setShipNAME("Xenta");
             shepard.enterShip(xenta, shepard);
@@ -126,9 +253,9 @@ public class Main {
             System.out.println("\nShip " + xenta.getShipNAME() + " info:");
             System.out.println("Type: " + getShipTYPE(xenta));
             System.out.println("Class: " + getShipCLASS(xenta));
-            System.out.println("Size: " + getShipSIZE(xenta));*/
+            System.out.println("Size: " + getShipSIZE(xenta));
+            */
         }
-
         catch (NullPointerException exc) {
             System.out.println("Что-то не так");
             exc.printStackTrace();

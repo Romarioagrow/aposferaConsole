@@ -1,19 +1,16 @@
 package tech.ships.shipclasses;
-import persons.Pilot;
+/*import persons.Pilot;*/
 import tech.ships.shipsparameters.*;
-import java.util.LinkedList;
 
 public class Ship {
     protected String shipNAME;
-
     protected static Enum<ShipClasses> shipCLASS;
-    protected static Enum<ShipType> shipTYPE;
+    static Enum<ShipType> shipTYPE;
     protected static Enum<ShipSize> shipSIZE;
+    protected Integer hullIntegrity, jumpRange, speedMax, cargoMax, fuelTank; /// НЕ СТАТИК!
+    protected Short pilotsMAX, slots;
 
-    protected int hullIntegrity, jumpRange, speedMax, cargoMax, fuelTank; /// НЕ СТАТИК!
-    protected short pilotesMAX, slots;
-
-    public LinkedList<Pilot> pilots= new LinkedList<Pilot> ();
+    /*public LinkedList<Pilot> pilots= new LinkedList<Pilot> ();*/
 
     protected void lockTarget() {}
     protected void flyTO() {}
@@ -26,37 +23,34 @@ public class Ship {
     public void setShipNAME(String shipNAME) {
         this.shipNAME = shipNAME;
     }
-
     public static Enum<ShipType> getShipTYPE(Ship ship) {
-        return ship.shipTYPE;
+        return shipTYPE;
     }
     public static Enum<ShipClasses> getShipCLASS(Ship ship) {
-        return ship.shipCLASS;
+        return shipCLASS;
     }
     public static Enum<ShipSize> getShipSIZE(Ship ship) {
-        return ship.shipSIZE;
+        return shipSIZE;
     }
-
-    public int getFuelTank() {
+    public Integer getFuelTank() {
         return fuelTank;
     }
-    public int getSpeedMaxd() {
+    public Integer getSpeedMax() {
         return speedMax;
     }
-    public int getJumpRange() {
+    public Integer getJumpRange() {
         return jumpRange;
     }
-    public int getcargoMax() {
+    public Integer getcargoMax() {
         return cargoMax;
     }
-    public int getHullIntegrity() {
+    public Integer getHullIntegrity() {
         return hullIntegrity;
     }
-    public int getSlots() {
+    public Short getSlots() {
         return slots;
     }
-    public short getPilotesMAX() {
-        return pilotesMAX;
+    public Short getPilotsMAX() {
+        return pilotsMAX;
     }
-
 }

@@ -1,8 +1,8 @@
+/*
 package tech.objects;
 import tech.ships.shipclasses.Ship;
 import tech.ships.ships.Anaconda;
 import tech.ships.shipsparameters.ShipClasses;
-
 public class ShipFactory {
     public Ship buildShip(ShipClasses type) throws NullPointerException { ///ДОБАВИТЬ NAME В ФАБРИКУ
         switch (type) {
@@ -13,6 +13,6 @@ public class ShipFactory {
                 return null;
         }
     }
-
     public void buyShip() {}
 }
+*/

@@ -1,15 +1,13 @@
+/*
 package persons;
-
 public class Person {
-    public String personNAME, personDuty;
+    private String personNAME, personDuty;
     private int personAge;
-
-    public Person(String name, int age) {
+    Person(String name, int age) {
         personNAME = name;
         personAge = age;
     }
-
-    public String getPersonNAME() {
+    String getPersonNAME() {
         return personNAME;
     }
     public void setPersonNAME(String personNAME) {
@@ -28,3 +26,4 @@ public class Person {
         this.personAge = personAge;
     }
 }
+*/
